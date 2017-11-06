@@ -11,7 +11,7 @@ import {
   withMaterialStyles
 } from 'material-native';
 
-import {Tag} from '../components'
+import {Tag} from '../components';
 
 export class TimetableList extends Component {
   static propTypes = {
@@ -22,14 +22,13 @@ export class TimetableList extends Component {
     var rightSide;
 
     switch (rowObj.length) {
-      case 0: {
+      case 0:
         // No lesson
-         rightSide = (
+        rightSide = (
           <MaterialText style={styles.subjectText}>Нет урока</MaterialText>
         );
         break;
-      }
-      case 1: {
+      case 1:
         // Single-group lesson
         rightSide = [
           (<MaterialText
@@ -39,13 +38,12 @@ export class TimetableList extends Component {
             {rowObj[0].name}
           </MaterialText>),
           rowObj[0].room ? (<Tag
-            text={rowObj[0].room}
+            room={rowObj[0].room}
             key="2"
           />) : null
         ];
         break;
-      }
-      default: {
+      default:
         // More than one group
         rightSide = [];
         for (var i = 0; i < rowObj.length; ++i) {
@@ -57,11 +55,11 @@ export class TimetableList extends Component {
               key={i}
             >
               <MaterialText style={styles.subjectText}>{rowObj[i].name}</MaterialText>
-              {rowObj[i].room ? (<Tag text={rowObj[i].room} />) : null}
+              {rowObj[i].room ? (<Tag room={rowObj[i].room} />) : null}
             </View>
           );
         }
-      }
+
     }
 
     var mainRowStyle = [styles.row];
@@ -93,7 +91,6 @@ export class TimetableList extends Component {
         data={this.props.rows}
         renderItem={this.renderRow}
         keyExtractor={(item, index) => index}
-        style={styles.main}
       />
     )
   }
@@ -101,10 +98,7 @@ export class TimetableList extends Component {
 
 export default withMaterialStyles((materialTheme) => ({}))(TimetableList);
 
-const styles = StyleSheet.create({
-  main: {
-    margin: 20
-  },
+export const styles = StyleSheet.create({
   row: {
     paddingVertical: 8,
     paddingHorizontal: 5,
