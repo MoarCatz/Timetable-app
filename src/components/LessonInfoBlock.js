@@ -17,12 +17,21 @@ class LessonInfoBlock extends Component {
   static propTypes = {
     lesson: PropTypes.string,
     lessonNumber: PropTypes.number,
-    teacherName: PropTypes.string,
+    teacherNames: PropTypes.array,
     lessonTime: PropTypes.string,
     breaks: PropTypes.array
   };
 
   render() {
+    var teachers = [];
+    for (var i = 0; i < this.props.teacherNames.length; ++i) {
+      teachers.push(
+        <View style={i != 0 && styles.topBorder} key={i}>
+          <MaterialText title>{this.props.teacherNames[i]}</MaterialText>
+          <Button text="ПОКАЗАТЬ РАСПИСАНИЕ"></Button>
+        </View>
+      );
+    }
     return (
       <View>
         <MaterialText headline>
@@ -44,8 +53,7 @@ class LessonInfoBlock extends Component {
         <View style={styles.infoBlockSection}>
           <Icon name="school" style={styles.icon} />
           <View style={styles.sectionBody}>
-            <MaterialText title>{this.props.teacherName}</MaterialText>
-            <Button text="ПОКАЗАТЬ РАСПИСАНИЕ"></Button>
+            {teachers}
           </View>
         </View>
       </View>
@@ -69,5 +77,10 @@ export const styles = StyleSheet.create({
   },
   sectionBody: {
     flex: 1
+  },
+  topBorder: {
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: '#d0d0d0',
+    paddingTop: 3
   }
 })
