@@ -20,10 +20,11 @@ class Tag extends Component {
     return (
       <View style={styles.tag}>
         <MaterialText style={styles.tagText}>{this.props.room}</MaterialText>
-        {this.props.class ?
-          (<MaterialText style={[styles.tagText, styles.leftBorder]}>
+        {this.props.class == undefined ? null : (
+          <MaterialText style={[styles.tagText, styles.leftBorder]}>
             {this.props.class}
-          </MaterialText>) : null}
+          </MaterialText>
+        )}
       </View>
     )
   }

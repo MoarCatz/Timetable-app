@@ -12,7 +12,7 @@ import {Tag} from '../components';
 import {TimetableList, styles} from './TimetableList';
 
 class TeacherTimetableList extends TimetableList {
-  renderRow({item: rowObj, index}) {
+  renderRightSide(rowObj) {
     var rightSide;
 
     switch (Object.keys(rowObj).length) {
@@ -29,36 +29,16 @@ class TeacherTimetableList extends TimetableList {
           >
             {rowObj.name}
           </MaterialText>),
-          rowObj.room ? (<Tag
-            room={rowObj.room}
-            class={rowObj.class}
-            key="2"
-          />) : null
+          rowObj.room == undefined ? null : (
+            <Tag
+              room={rowObj.room}
+              class={rowObj.class}
+              key="2"
+            />
+          )
         ];
-        break;
     }
-
-    var mainRowStyle = [styles.row];
-    var rightSideStyle = [styles.lessonRowRight];
-    if (index == 0) {
-      mainRowStyle.push(styles.firstRow);
-    }
-    if (rowObj.length > 1) {
-      mainRowStyle.push(styles.noVerticalPad);
-    }
-    else {
-      rightSideStyle.push(styles.flexRow);
-    }
-    return (
-      <View style={mainRowStyle}>
-        <MaterialText style={styles.subjectText}>
-          {`${index + 1}.`}
-        </MaterialText>
-        <View style={rightSideStyle}>
-          {rightSide}
-        </View>
-      </View>
-    );
+    return rightSide;
   }
 }
 

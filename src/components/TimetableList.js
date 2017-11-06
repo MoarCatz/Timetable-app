@@ -18,7 +18,7 @@ export class TimetableList extends Component {
     rows: PropTypes.array
   };
 
-  renderRow({item: rowObj, index}) {
+  renderRightSide(rowObj) {
     var rightSide;
 
     switch (rowObj.length) {
@@ -37,10 +37,12 @@ export class TimetableList extends Component {
           >
             {rowObj[0].name}
           </MaterialText>),
-          rowObj[0].room ? (<Tag
-            room={rowObj[0].room}
-            key="2"
-          />) : null
+          rowObj[0].room == undefined ? null : (
+            <Tag
+              room={rowObj[0].room}
+              key="2"
+            />
+          )
         ];
         break;
       default:
@@ -49,19 +51,19 @@ export class TimetableList extends Component {
         for (var i = 0; i < rowObj.length; ++i) {
           rightSide.push(
             <View
-              style={i == 0 ?
-                [styles.row, styles.innerRow, styles.firstRow] :
-                [styles.row, styles.innerRow]}
+              style={[styles.row, styles.innerRow, i == 0 && styles.firstRow]}
               key={i}
             >
               <MaterialText style={styles.subjectText}>{rowObj[i].name}</MaterialText>
-              {rowObj[i].room ? (<Tag room={rowObj[i].room} />) : null}
+              {rowObj[i].room == undefined ? null : (<Tag room={rowObj[i].room} />)}
             </View>
           );
         }
-
     }
+    return rightSide;
+  }
 
+  renderRow({item: rowObj, index}) {
     var mainRowStyle = [styles.row];
     var rightSideStyle = [styles.lessonRowRight];
     if (index == 0) {
@@ -79,7 +81,7 @@ export class TimetableList extends Component {
           {`${index + 1}.`}
         </MaterialText>
         <View style={rightSideStyle}>
-          {rightSide}
+          {this.renderRightSide(rowObj)}
         </View>
       </View>
     );
@@ -89,7 +91,7 @@ export class TimetableList extends Component {
     return (
       <FlatList
         data={this.props.rows}
-        renderItem={this.renderRow}
+        renderItem={this.renderRow.bind(this)}
         keyExtractor={(item, index) => index}
       />
     )
@@ -117,7 +119,7 @@ export const styles = StyleSheet.create({
     paddingRight: 0
   },
   subjectText: {
-    fontSize: 19,
+    fontSize: 17,
     lineHeight: 24
   },
   lessonRowRight: {
