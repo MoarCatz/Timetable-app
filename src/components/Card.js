@@ -16,7 +16,7 @@ class Card extends Component {
   static propTypes = {
     title: PropTypes.string,
     actions: PropTypes.array,
-    ...View.propTypes
+    style: PropTypes.object
   }
 
   renderButtons(actions) {
