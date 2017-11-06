@@ -11,7 +11,7 @@ import {
   withMaterialStyles
 } from 'material-native';
 
-export class BulletList extends Component {
+class BulletList extends Component {
   static propTypes = {
     rows: PropTypes.array
   };
@@ -39,7 +39,7 @@ export class BulletList extends Component {
 
 export default withMaterialStyles((materialTheme) => ({}))(BulletList);
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   list: {
     marginLeft: 10,
     marginVertical: 5
